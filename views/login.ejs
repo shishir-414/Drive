@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.0.0/dist/flowbite.min.js"></script>
+  </head>
+  <body class="bg-gradient-to-r from-blue-500 to-indigo-600 flex justify-center items-center h-screen">
+
+    <div class="bg-white w-full sm:w-96 rounded-xl p-10 shadow-lg transform transition-all hover:scale-105 hover:shadow-2xl duration-500 ease-in-out">
+      <form action="/users/login" method="post" class="space-y-8">
+        <h2 class="text-3xl font-semibold text-center text-gray-900">Welcome Back</h2>
+
+        <!-- Username -->
+        <div>
+          <label for="username" class="text-lg font-medium text-gray-700 dark:text-white">Username</label>
+          <input 
+            type="text" 
+            id="username" 
+            name="username" 
+            class="mt-2 w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-indigo-500 transition duration-300 ease-in-out"
+            placeholder="Enter your username"
+            required 
+          />
+        </div>
+
+        <!-- Password -->
+        <div class="relative">
+          <label for="password" class="text-lg font-medium text-gray-700 dark:text-white">Password</label>
+          <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            class="mt-2 w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-indigo-500 transition duration-300 ease-in-out"
+            placeholder="••••••••" 
+            required 
+          />
+          <span 
+            id="toggle-password"
+            onclick="togglePasswordVisibility()" 
+            class="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer text-gray-500 dark:text-gray-300">
+            <i class="ri-eye-line text-xl"></i>
+          </span>
+        </div>
+
+        <!-- Submit Button -->
+        <button 
+          type="submit" 
+          class="w-full px-6 py-3 bg-indigo-600 text-white font-semibold text-lg rounded-xl shadow-xl hover:bg-indigo-700 transition-all duration-300 ease-in-out transform hover:scale-105">
+          Login
+        </button>
+
+        <!-- Forgot Password -->
+        <div class="text-center mt-4">
+          <a href="#" class="text-sm text-indigo-600 hover:text-indigo-800 transition-all">Forgot Password?</a>
+        </div>
+      </form>
+    </div>
+
+    <!-- JS for Success Message and Redirect Handling -->
+    <script>
+      // Check if the URL has the "message" query parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      const message = urlParams.get('message');
+
+      if (message === 'Login+successful') {
+        alert('Login successful! You will be redirected to the home page.');
+        // Redirect to the home page after 2 seconds
+        setTimeout(() => {
+          window.location.href = '/home'; // Redirect to the home page
+        }, 2000); // 2 seconds delay before redirect
+      }
+
+      // Function to toggle password visibility
+      function togglePasswordVisibility() {
+        const passwordField = document.getElementById("password");
+        const eyeIcon = document.getElementById("toggle-password");
+
+        if (passwordField.type === "password") {
+          passwordField.type = "text";
+          eyeIcon.innerHTML = '<i class="ri-eye-off-line text-xl"></i>';
+        } else {
+          passwordField.type = "password";
+          eyeIcon.innerHTML = '<i class="ri-eye-line text-xl"></i>';
+        }
+      }
+    </script>
+  </body>
+</html>
